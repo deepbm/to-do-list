@@ -10,12 +10,15 @@ export default function ToDoList() {
   const handleUpdate = updated => {
     setTodos(prev => prev.map(todo => (todo.id === updated.id ? updated : todo)));
   };
+  const handleDelete = id => {
+    setTodos(prev => prev.filter(todo => todo.id !== id));
+  };
 
   return (
     <>
       <ul>
         {todos.map(todo => (
-          <ToDoListItem key={todo.id} todo={todo} onUpdate={handleUpdate} />
+          <ToDoListItem key={todo.id} todo={todo} onUpdate={handleUpdate} onDelete={handleDelete} />
         ))}
       </ul>
       <AddForm onAdd={handleAdd} />
