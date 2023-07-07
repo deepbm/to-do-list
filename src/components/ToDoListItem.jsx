@@ -13,7 +13,7 @@ export default function ToDoListItem({ todo, todo: { id, text, status }, onUpdat
   return (
     <li>
       <input type='checkbox' id={id} name='text' onChange={handleChange} />
-      <label for={id}>{text}</label>
+      <label htmlFor={id}>{text}</label>
       <button onClick={handleDelete}>
         <BsFillTrashFill />
       </button>
