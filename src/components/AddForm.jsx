@@ -5,6 +5,15 @@ export default function AddForm({ onAdd }) {
   const [text, setText] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
+    const addText = text.trim();
+    if (addText.length === 0) {
+      alert('글자수를 확인해주세요.');
+      setText('');
+      return;
+    } else if (addText.length > 25) {
+      alert('25자 이내로 작성해주세요.');
+      return;
+    }
     const newTodo = { id: uuidv4(), text, status: 'active' };
     onAdd(newTodo);
     setText('');
