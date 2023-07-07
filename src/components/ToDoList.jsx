@@ -21,9 +21,14 @@ export default function ToDoList() {
   }, [todos]);
 
   return (
-    <>
-      <p>{total}</p>
-      <ul>
+    <section className='grow flex flex-col p-4'>
+      <div className='mb-2'>
+        <span className='mr-1 text-brand'>Total:</span>
+        <div className='inline-flex justify-center items-center w-5 h-5 bg-brand rounded-full'>
+          <p className='text-white text-center'>{total}</p>
+        </div>
+      </div>
+      <ul className='grow'>
         {todos.length > 0 &&
           todos.map(todo => (
             <ToDoListItem
@@ -35,7 +40,7 @@ export default function ToDoList() {
           ))}
       </ul>
       <AddForm onAdd={handleAdd} />
-    </>
+    </section>
   );
 }
 

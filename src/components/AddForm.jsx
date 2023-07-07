@@ -11,9 +11,17 @@ export default function AddForm({ onAdd }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type='text' name='text' value={text} onChange={e => setText(e.target.value)} />
-      <button type='submit'>Add</button>
+    <form className='flex' onSubmit={handleSubmit}>
+      <input
+        className='grow py-1 px-2 bg-lightBlue outline-none border-slate-400'
+        type='text'
+        name='text'
+        value={text}
+        onChange={e => setText(e.target.value)}
+      />
+      <button className='px-2 bg-brand rounded text-white' type='submit'>
+        Add
+      </button>
     </form>
   );
 }
