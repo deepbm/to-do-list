@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ToDoListItem from './ToDoListItem';
 import AddForm from './AddForm';
 
 export default function ToDoList() {
   const [todos, setTodos] = useState(initialTodos);
+  const [total, setTotal] = useState(0);
   const handleAdd = todo => {
     setTodos(prev => [...prev, todo]);
   };
@@ -14,8 +15,13 @@ export default function ToDoList() {
     setTodos(prev => prev.filter(todo => todo.id !== id));
   };
 
+  useEffect(() => {
+    setTotal(todos.length);
+  }, [todos]);
+
   return (
     <>
+      <p>{total}</p>
       <ul>
         {todos.map(todo => (
           <ToDoListItem key={todo.id} todo={todo} onUpdate={handleUpdate} onDelete={handleDelete} />
