@@ -22,14 +22,14 @@ export default function AddForm({ onAdd }) {
   return (
     <form className='flex' onSubmit={handleSubmit}>
       <input
-        className='grow py-1 px-2 bg-lightBlue outline-none border-slate-400'
+        className='grow p-2 bg-lightBlue outline-none border-slate-400 text-lg'
         type='text'
         name='text'
         value={text}
         onChange={e => setText(e.target.value)}
       />
-      <button className='px-2 bg-brand rounded text-white' type='submit'>
-        Add
+      <button className='px-2.5 bg-brand rounded text-white font-bold' type='submit'>
+        등록
       </button>
     </form>
   );

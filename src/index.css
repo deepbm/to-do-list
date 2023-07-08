@@ -16,5 +16,9 @@ code {
 }
 
 #root {
-  @apply flex flex-col w-full md:w-96 h-full md:h-2/3;
+  @apply flex flex-col w-full md:w-96 h-full md:h-2/3 shadow-lg;
+}
+
+input[type='checkbox'] {
+  border: 1px solid #ddd;
 }
