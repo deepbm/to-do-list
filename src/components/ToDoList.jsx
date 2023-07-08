@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ToDoListItem from './ToDoListItem';
 import AddForm from './AddForm';
 
 export default function ToDoList() {
   const [todos, setTodos] = useState(readTodosFromLocalstorage);
-  const [total, setTotal] = useState(0);
   const [completed, setCompleted] = useState(0);
   const [bar, setBar] = useState(0);
+  const bottomRef = useRef(null);
   const handleAdd = todo => {
     setTodos(prev => [...prev, todo]);
+    scrollToBottom();
   };
   const handleUpdate = updated => {
     setTodos(prev => prev.map(todo => (todo.id === updated.id ? updated : todo)));
@@ -17,16 +18,20 @@ export default function ToDoList() {
     setTodos(prev => prev.filter(todo => todo.id !== id));
   };
 
+  const scrollToBottom = () => {
+    bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  };
+
   useEffect(() => {
-    setTotal(todos.length);
     setCompleted(todos.filter(todo => todo.status === 'active').length);
 
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
   useEffect(() => {
+    const total = todos.length;
     setBar(((total - completed) / total) * 100);
-  }, [completed, total]);
+  }, [completed, todos]);
 
   return (
     <section className='grow flex flex-col p-4 px-6 min-h-0'>
@@ -56,6 +61,7 @@ export default function ToDoList() {
               onDelete={handleDelete}
             />
           ))}
+        <li ref={bottomRef}></li>
       </ul>
       <AddForm onAdd={handleAdd} />
     </section>
