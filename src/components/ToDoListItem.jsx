@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsFillTrashFill } from 'react-icons/bs';
+import { PiTrashSimpleBold } from 'react-icons/pi';
 
 export default function ToDoListItem({ todo, todo: { id, text, status }, onUpdate, onDelete }) {
   const handleChange = e => {
@@ -11,24 +11,24 @@ export default function ToDoListItem({ todo, todo: { id, text, status }, onUpdat
   };
 
   return (
-    <li className='flex items-center my-3 text-lg'>
+    <li className='flex items-center mb-3 text-lg'>
       <input
         className='w-4 h-4 mr-1 accent-brand rounded'
         type='checkbox'
         id={id}
         name='text'
         onChange={handleChange}
-        checked={status === 'completed'}
+        defaultChecked={status === 'completed'}
       />
       <label
-        className='grow px-1 line-clamp-1 break-words text-brand'
-        style={{ color: status === 'completed' ? '#ddd' : '#6f7df7' }}
+        className='flex-1 px-1 line-clamp-1 break-words text-brand'
+        style={{ color: status === 'completed' ? '#ddd' : '#2f4dd3' }}
         htmlFor={id}
       >
         {text}
       </label>
       <button onClick={handleDelete}>
-        <BsFillTrashFill className='text-brand hover:scale-110' />
+        <PiTrashSimpleBold className='text-[#bbb] hover:text-brand' />
       </button>
     </li>
   );

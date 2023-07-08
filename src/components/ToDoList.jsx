@@ -29,21 +29,24 @@ export default function ToDoList() {
   }, [completed, total]);
 
   return (
-    <section className='grow flex flex-col p-4'>
-      <div className='mb-2 text-sm'>
-        <span className='mr-1 text-brand'>총 갯수:</span>
-        <span className='text-brand text-center font-bold'>{total}</span>
-        <span className='mx-2 text-brand'>/</span>
-        <span className='mr-1 text-brand'>남은 할 일:</span>
-        <span className='text-brand text-center font-bold'>{completed}</span>
+    <section className='grow flex flex-col p-4 px-6 min-h-0'>
+      <div className='inline mb-2 bg-lightBlue text-brand'>
+        <span className='mr-1'>총 갯수:</span>
+        <span className='text-center font-bold'>{todos.length}</span>
+        <span className='mx-2'>/</span>
+        <span className='mr-1'>남은 할 일:</span>
+        <span className='text-center font-bold'>{completed}</span>
       </div>
-      <div className='w-full h-1 bg-lightBlue'>
-        <div
-          className='h-1 bg-brand transition-all ease-in-out duration-300'
-          style={{ width: `${bar}%` }}
-        ></div>
+      <div className='flex items-center gap-3'>
+        <div className='w-full h-1 bg-lightBlue'>
+          <div
+            className='h-1 bg-brand transition-all ease-in-out duration-300'
+            style={{ width: `${bar}%` }}
+          ></div>
+        </div>
+        <span className='text-sm text-brand font-bold'>{Math.round(bar)}%</span>
       </div>
-      <ul className='grow'>
+      <ul className='invisible-scrollbar grow overflow-y-auto my-4'>
         {todos.length > 0 &&
           todos.map(todo => (
             <ToDoListItem
