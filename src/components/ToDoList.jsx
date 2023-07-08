@@ -5,6 +5,8 @@ import AddForm from './AddForm';
 export default function ToDoList() {
   const [todos, setTodos] = useState(readTodosFromLocalstorage);
   const [total, setTotal] = useState(0);
+  const [completed, setCompleted] = useState(0);
+  const [bar, setBar] = useState(0);
   const handleAdd = todo => {
     setTodos(prev => [...prev, todo]);
   };
@@ -17,16 +19,29 @@ export default function ToDoList() {
 
   useEffect(() => {
     setTotal(todos.length);
+    setCompleted(todos.filter(todo => todo.status === 'active').length);
+
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
+  useEffect(() => {
+    setBar(((total - completed) / total) * 100);
+  }, [completed, total]);
+
   return (
     <section className='grow flex flex-col p-4'>
-      <div className='mb-2'>
-        <span className='mr-1 text-brand'>Total:</span>
-        <div className='inline-flex justify-center items-center w-5 h-5 bg-brand rounded-full'>
-          <p className='text-white text-center'>{total}</p>
-        </div>
+      <div className='mb-2 text-sm'>
+        <span className='mr-1 text-brand'>총 갯수:</span>
+        <span className='text-brand text-center font-bold'>{total}</span>
+        <span className='mx-2 text-brand'>/</span>
+        <span className='mr-1 text-brand'>남은 할 일:</span>
+        <span className='text-brand text-center font-bold'>{completed}</span>
+      </div>
+      <div className='w-full h-1 bg-lightBlue'>
+        <div
+          className='h-1 bg-brand transition-all ease-in-out duration-300'
+          style={{ width: `${bar}%` }}
+        ></div>
       </div>
       <ul className='grow'>
         {todos.length > 0 &&
