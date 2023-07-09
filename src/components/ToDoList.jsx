@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import ToDoListItem from './ToDoListItem';
 import AddForm from './AddForm';
 
+const filters = ['all', 'active'];
 export default function ToDoList() {
   const [todos, setTodos] = useState(readTodosFromLocalstorage);
   const [completed, setCompleted] = useState(0);
   const [bar, setBar] = useState(0);
+  const [filter, setFilter] = useState(filters[0]);
   const bottomRef = useRef(null);
   const handleAdd = todo => {
     setTodos(prev => [...prev, todo]);
@@ -22,6 +24,10 @@ export default function ToDoList() {
     bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
   };
 
+  const handleFilter = e => {
+    setFilter(e.target.innerHTML);
+  };
+
   useEffect(() => {
     setCompleted(todos.filter(todo => todo.status === 'completed').length);
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -32,14 +38,24 @@ export default function ToDoList() {
     setBar((completed / total) * 100);
   }, [completed, todos]);
 
+  const filtered = getFilteredTodos(todos, filter);
+
   return (
-    <section className='grow flex flex-col p-4 px-6 min-h-0'>
-      <div className='inline mb-2 bg-lightBlue text-brand'>
-        <span className='mr-1'>총 갯수:</span>
-        <span className='text-center font-bold'>{todos.length}</span>
-        <span className='mx-2'>/</span>
-        <span className='mr-1'>남은 할 일:</span>
-        <span className='text-center font-bold'>{completed}</span>
+    <section className='grow flex flex-col p-4 px-6 pb-7 min-h-0'>
+      <div className='py-2 text-gray'>
+        {filters.map(filter => (
+          <button
+            className='mr-1 p-1 px-5 rounded-full capitalize'
+            style={
+              filter === 'all'
+                ? { color: '#2E00B3', fontWeight: 'bold', backgroundColor: '#f2f2f6' }
+                : { color: '#A6A6C3', fontWeight: 'normal', backgroundColor: 'transparent' }
+            }
+            onClick={handleFilter}
+          >
+            {filter}
+          </button>
+        ))}
       </div>
       <div className='flex items-center gap-3'>
         <div className='w-full h-1.5 bg-lightGray rounded-md'>
@@ -51,8 +67,8 @@ export default function ToDoList() {
         <span className='text-sm text-brand font-bold'>{Math.round(bar)}%</span>
       </div>
       <ul className='mostly-customized-scrollbar grow overflow-y-auto my-4 p-2'>
-        {todos.length > 0 &&
-          todos.map(todo => (
+        {filtered.length > 0 &&
+          filtered.map(todo => (
             <ToDoListItem
               key={todo.id}
               todo={todo}
@@ -70,4 +86,11 @@ export default function ToDoList() {
 const readTodosFromLocalstorage = () => {
   const todos = localStorage.getItem('todos');
   return todos ? JSON.parse(todos) : [];
+};
+
+const getFilteredTodos = (todos, filter) => {
+  if (filter !== 'all') {
+    return todos.filter(todo => todo.status === filter);
+  }
+  return todos;
 };
