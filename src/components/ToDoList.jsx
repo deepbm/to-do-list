@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ToDoListItem from './ToDoListItem';
 import AddForm from './AddForm';
+import Bar from './ui/Bar';
+import Filter from './ui/Filter';
 
 const filters = ['all', 'active'];
 export default function ToDoList() {
@@ -24,10 +26,6 @@ export default function ToDoList() {
     bottomRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
   };
 
-  const handleFilter = e => {
-    setFilter(e.target.innerHTML);
-  };
-
   useEffect(() => {
     setCompleted(todos.filter(todo => todo.status === 'completed').length);
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -42,30 +40,8 @@ export default function ToDoList() {
 
   return (
     <section className='grow flex flex-col p-4 px-6 pb-7 min-h-0'>
-      <div className='py-2 text-gray'>
-        {filters.map(filter => (
-          <button
-            className='mr-1 p-1 px-5 rounded-full capitalize'
-            style={
-              filter === 'all'
-                ? { color: '#2E00B3', fontWeight: 'bold', backgroundColor: '#f2f2f6' }
-                : { color: '#A6A6C3', fontWeight: 'normal', backgroundColor: 'transparent' }
-            }
-            onClick={handleFilter}
-          >
-            {filter}
-          </button>
-        ))}
-      </div>
-      <div className='flex items-center gap-3'>
-        <div className='w-full h-1.5 bg-lightGray rounded-md'>
-          <div
-            className='h-1.5 rounded-md bg-brand transition-all ease-in-out duration-300'
-            style={{ width: `${bar}%` }}
-          ></div>
-        </div>
-        <span className='text-sm text-brand font-bold'>{Math.round(bar)}%</span>
-      </div>
+      <Filter filters={filters} onUpdate={setFilter} />
+      <Bar bar={bar} />
       <ul className='mostly-customized-scrollbar grow overflow-y-auto my-4 p-2'>
         {filtered.length > 0 &&
           filtered.map(todo => (
