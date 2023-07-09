@@ -13,7 +13,7 @@ export default function ToDoListItem({ todo, todo: { id, text, status }, onUpdat
   return (
     <li className='flex items-center mb-3 text-lg'>
       <input
-        className='w-4 h-4 mr-1 accent-brand rounded'
+        className='w-4 h-4 mr-2 accent-brand rounded'
         type='checkbox'
         id={id}
         name='text'
@@ -21,8 +21,8 @@ export default function ToDoListItem({ todo, todo: { id, text, status }, onUpdat
         defaultChecked={status === 'completed'}
       />
       <label
-        className='flex-1 px-1 line-clamp-1 break-words text-brand'
-        style={{ color: status === 'completed' ? '#ddd' : '#2f4dd3' }}
+        className='flex-1 px-1 line-clamp-2 break-words text-[#515151] font-medium'
+        style={{ textDecorationLine: status === 'completed' ? 'line-through' : 'none' }}
         htmlFor={id}
       >
         {text}

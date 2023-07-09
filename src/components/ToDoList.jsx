@@ -23,14 +23,13 @@ export default function ToDoList() {
   };
 
   useEffect(() => {
-    setCompleted(todos.filter(todo => todo.status === 'active').length);
-
+    setCompleted(todos.filter(todo => todo.status === 'completed').length);
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
   useEffect(() => {
     const total = todos.length;
-    setBar(((total - completed) / total) * 100);
+    setBar((completed / total) * 100);
   }, [completed, todos]);
 
   return (
@@ -43,15 +42,15 @@ export default function ToDoList() {
         <span className='text-center font-bold'>{completed}</span>
       </div>
       <div className='flex items-center gap-3'>
-        <div className='w-full h-1 bg-lightBlue'>
+        <div className='w-full h-1.5 bg-lightGray rounded-md'>
           <div
-            className='h-1 bg-brand transition-all ease-in-out duration-300'
+            className='h-1.5 rounded-md bg-brand transition-all ease-in-out duration-300'
             style={{ width: `${bar}%` }}
           ></div>
         </div>
         <span className='text-sm text-brand font-bold'>{Math.round(bar)}%</span>
       </div>
-      <ul className='invisible-scrollbar grow overflow-y-auto my-4'>
+      <ul className='mostly-customized-scrollbar grow overflow-y-auto my-4 p-2'>
         {todos.length > 0 &&
           todos.map(todo => (
             <ToDoListItem

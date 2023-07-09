@@ -8,7 +8,7 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply flex justify-center items-center w-screen h-screen bg-[#e6edfd];
+  @apply flex justify-center items-center w-screen h-screen bg-[#E2DEEC];
 }
 
 code {
@@ -16,13 +16,23 @@ code {
 }
 
 #root {
-  @apply flex flex-col w-full md:w-96 h-full md:h-2/3 shadow-lg bg-white;
+  @apply flex flex-col w-full md:w-96 h-full md:h-3/4 shadow-lg shadow-[#D1BDFA] bg-white md:rounded-3xl;
 }
 
 input[type='checkbox'] {
-  border: 1px solid #ddd;
+  appearance: none;
+  border: 1px solid #dcc4ff;
 }
 
-.invisible-scrollbar::-webkit-scrollbar {
-  display: none;
+input[type='checkbox']:checked {
+  appearance: auto;
+}
+
+.mostly-customized-scrollbar::-webkit-scrollbar {
+  width: 2px;
+  background-color: #f2f2f6;
+}
+
+.mostly-customized-scrollbar::-webkit-scrollbar-thumb {
+  background: #793def;
 }
