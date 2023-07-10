@@ -33,15 +33,16 @@ export default function ToDoList() {
 
   useEffect(() => {
     const total = todos.length;
-    setBar((completed / total) * 100);
+    const percent = (completed / total) * 100;
+    setBar(isNaN(percent) ? 0 : percent);
   }, [completed, todos]);
 
   const filtered = getFilteredTodos(todos, filter);
 
   return (
     <section className='grow flex flex-col p-4 px-6 pb-7 min-h-0'>
-      <Filter filters={filters} onUpdate={setFilter} />
-      <Bar bar={bar} />
+      <Filter filters={filters} filter={filter} onUpdate={setFilter} />
+      {todos.length > 0 && <Bar bar={bar} />}
       <ul className='mostly-customized-scrollbar grow overflow-y-auto my-4 p-2'>
         {filtered.length > 0 &&
           filtered.map(todo => (
