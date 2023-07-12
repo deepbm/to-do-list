@@ -24,3 +24,6 @@ https://deepbm.github.io/to-do-list/ 주소로 확인할 수 있습니다.
 - Todo 데이터 추가와 삭제
 
 ## Application screen shots:
+
+![All](https://github.com/deepbm/to-do-list/assets/82020586/4f379779-1b14-426a-951f-363c97f889d9)
+![Active](https://github.com/deepbm/to-do-list/assets/82020586/184b4971-c4c3-4574-a073-505345df658b)
