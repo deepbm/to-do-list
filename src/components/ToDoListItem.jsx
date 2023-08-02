@@ -13,7 +13,7 @@ export default function ToDoListItem({ todo, todo: { id, text, status }, onUpdat
   return (
     <li className='flex items-center mb-3 text-lg'>
       <input
-        className='w-4 h-4 mr-2 accent-brand rounded'
+        className='w-4 h-4 mr-2 accent-brand rounded-sm'
         type='checkbox'
         id={id}
         name='text'
